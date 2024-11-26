@@ -359,22 +359,22 @@ function playAgain() {
     }
 
     // Handle touch start (start drawing)
-     function startfunction(e) {
-        const touch = e.target
-        const target = touch
+    grid.addEventListener('touchstart', function (e) {
+        const touch = e.touches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
         if (target.classList.contains('cell')) {
             isDrawing = true;
             selectedCells = [target];
            target.style.backgroundColor = '#aaf'; // Highlight cell
            // target.cr= '#aaf'
         }
-    }
+    });
 
     // Handle touch move (draw lines)
-    function continuefunction(e) {
+    grid.addEventListener('touchmove', function (e) {
         if (isDrawing) {
-            const touch = e.target
-            const target = touch
+            const touch = e.touches[0];
+            const target = document.elementFromPoint(touch.clientX, touch.clientY);
             if (target.classList.contains('cell') && !selectedCells.includes(target)) {
                 const lastCell = selectedCells[selectedCells.length - 1];
                 selectedCells.push(target);
@@ -387,10 +387,10 @@ function playAgain() {
                // drawLine(from, to);
             }
         }
-    }
+    });
 
     // Handle touch end (stop drawing and check word)
-    function endSelection() {
+    grid.addEventListener('touchend', function () {
         if (isDrawing) {
             isDrawing = false;
             sound.play();
@@ -429,24 +429,6 @@ function playAgain() {
            // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear lines
             selectedCells = [];
         }
-    }
-
-    grid.addEventListener('touchmove', function (e) {
-        if (isDrawing) {
-            const touch = e.touches[0];
-            const target = document.elementFromPoint(touch.clientX, touch.clientY);
-            if (target.classList.contains('cell') && !selectedCells.includes(target)) {
-                const lastCell = selectedCells[selectedCells.length - 1];
-                selectedCells.push(target);
-                target.id = true;
-                
-                target.style.backgroundColor = '#aaf'; // Highlight cell
-                 //target.cr = target.style.backgroundColor
-                const from = getCellCenter(lastCell);
-                const to = getCellCenter(target);
-               // drawLine(from, to);
-            }
-        }
     });
 
     // Handle next level button click
@@ -465,20 +447,9 @@ function playAgain() {
             alert('You have completed all levels!');
         }
     });
-    function addEventListener()
-    {
-        grid.addEventListener('mousedown',startfunction);
-        grid.addEventListener('touchstart',startfunction);
-        grid.addEventListener('mouseover',continuefunction);
-        //grid.addEventListener('touchmove',continuefunction);
-     
-        grid.addEventListener('mouseup',endSelection);
-        grid.addEventListener('touchend',endSelection);
 
-    }
     // Initialize game
     loadLevel(currentLevel);
-    addEventListener();
 </script>
 
 </body>
