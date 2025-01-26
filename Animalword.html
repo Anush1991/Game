@@ -276,7 +276,7 @@ grid: [
     }
     
      function appendTextToGrid() {
-         alert('hi')
+        // alert('hi')
             const gridContainer = document.getElementById("game-container");
             const newItem = document.createElement("div"); // Create a new div element
             newItem.className = "message"; // Set the class name
@@ -398,7 +398,7 @@ function playAgain() {
             
             const currentWords = levels[currentLevel - 1].words;
             if (currentWords.includes(selectedWord)) {
-                alert(`You found the word: ${selectedWord}!`);
+               // alert(`You found the word: ${selectedWord}!`);
                 score += 10;
                 scoreDisplay.textContent = `Score: ${score}`;
                 
